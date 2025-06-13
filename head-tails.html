@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Head / Tails</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+    <H1> HEAD / TAILS</H1>
+    <button onclick="
+      playGame('heads');
+    ">🤠heads</button>
+
+    <button onclick="
+      playGame('tails');
+    ">🧜‍♂️tails</button>
+
+    <button onclick="
+    resetscore()">🗑Reset</button>
+
+    <div id="score"></div>
+    </main>
+    <script>
+      function playGame(guess) {
+        const randomNumber = Math.random();
+        const result = randomNumber < 0.5 ? 'heads' : 'tails';
+
+        console.log(guess === result ? 'You win!' : 'You lose!');
+       
+
+        if (guess === result){
+            count.wins ++;
+        } else {
+            count.losses ++;
+        }
+        console.log(count);
+        localStorage.setItem('count',JSON.stringify(count));
+         UpdateScore();
+      }
+      
+      const count =JSON.parse(localStorage.getItem('count'))||{
+         wins : 0,
+        losses: 0,
+      };
+      function resetscore(){
+        count.wins = 0;
+        count.losses = 0;
+     localStorage.setItem('count',JSON.stringify(count));
+     console.log('Score Reset', count);
+     UpdateScore();
+      }
+      function UpdateScore(){
+        const GetScore = document.getElementById('score');
+        GetScore.textContent = `Wins: ${count.wins} | Losses: ${count.losses}`
+      }
+      UpdateScore();
+    </script>
+  </body>
+</html>
